@@ -181,6 +181,10 @@ export async function showProblem(
 				: '<div id="source" class="problem-section hidden"></div>'
 		}
 
+    <a style="font-size:20px" href="https://www.acmicpc.net/submit/${problemNumber}" target="_blank">
+    제출 하로가기
+    </a>
+
       </body>
       </html>
     `;
