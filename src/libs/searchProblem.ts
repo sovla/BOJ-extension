@@ -31,13 +31,19 @@ export async function searchProblem(
 		{
 			headers: {
 				"User-Agent":
-					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+					"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
 			},
 			responseType: "arraybuffer", // Response 데이터를 바이너리 데이터로 받도록 설정
 		}
 	);
 
+	// Check if response.data exists before proceeding
+	if (!response.data) {
+		throw new Error("Failed to fetch problem data");
+	}
+
 	const htmlData = response.data.toString("utf-8"); // 바이너리 데이터를 문자열로 변환
+
 
 	// Cheerio를 사용하여 HTML 파싱
 	const $ = cheerio.load(htmlData);
