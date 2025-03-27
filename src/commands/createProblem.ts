@@ -47,7 +47,19 @@ export function createProblem(context: vscode.ExtensionContext) {
 					vscode.workspace.workspaceFolders![0].uri.fsPath,
 					folderName
 				);
-				fs.mkdirSync(folderPath);
+				try {
+					fs.mkdirSync(folderPath);
+				} catch (error) {
+					if(error instanceof Error && (error as any).code === "EEXIST") {
+						const files = fs.readdirSync(folderPath);
+						if (files.length !== 0) {
+							// 폴더가 존재하고 안에 파일이 있을 경우
+							throw error;
+						}
+					}else{
+						throw error;
+					}
+				}
 
 				// 파일명 생성
 				let fileName = "";
